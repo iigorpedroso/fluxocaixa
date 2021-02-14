@@ -9,9 +9,9 @@ String _createTypeExpense = '''CREATE TABLE TypeExpense (
 
 String _createExpense = '''CREATE TABLE Expense (
                       id INTEGER PRIMARY KEY AUTOINCREMENT,
-                      type_id INTEGER,
-                      observations TEXT NOT NULL,
-                      date_hour TIMESTAMP NOT NULL,
+                      type INTEGER,
+                      description TEXT NOT NULL,
+                      date TIMESTAMP NOT NULL,
                       value FLOAT NOT NULL)''';
 
 String _createTypeRecipe = '''CREATE TABLE TypeRecipe (
@@ -21,9 +21,9 @@ String _createTypeRecipe = '''CREATE TABLE TypeRecipe (
 
 String _createRecipe = '''CREATE TABLE Recipe (
                       id INTEGER PRIMARY KEY AUTOINCREMENT,
-                      type_id INTEGER,
-                      observations TEXT NOT NULL,
-                      date_hour TIMESTAMP NOT NULL,
+                      type INTEGER,
+                      description TEXT NOT NULL,
+                      date TIMESTAMP NOT NULL,
                       value FLOAT NOT NULL)''';
 
 

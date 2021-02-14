@@ -26,7 +26,7 @@ class ControllerExpense {
 
   Future<List<Expense>> findAll() async {
     List<Map> maps = await _db
-        .query('Expense', columns: ['id', 'type_id', 'observation', 'date', 'value']);
+        .query('Expense', columns: ['id', 'type', 'description', 'date', 'value']);
     if (maps.length > 0) {
       return List<Map<String, dynamic>>.from(maps)
           .map((e) => Expense.fromJson(e))
@@ -37,7 +37,7 @@ class ControllerExpense {
 
   Future<Expense> findById(int id) async {
     List<Map> maps = await _db.query('Expense',
-        columns: ['id', 'type_id', 'observation', 'date', 'value'],
+        columns: ['id', 'type', 'description', 'date', 'value'],
         where: 'id = ?',
         whereArgs: [id]);
     if (maps.length > 0) {

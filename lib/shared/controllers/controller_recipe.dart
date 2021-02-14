@@ -26,7 +26,7 @@ class ControllerRecipe {
 
   Future<List<Recipe>> findAll() async {
     List<Map> maps = await _db
-        .query('Recipe', columns: ['id', 'type_id', 'observation', 'date', 'value']);
+        .query('Recipe', columns: ['id', 'type', 'description', 'date', 'value']);
     if (maps.length > 0) {
       return List<Map<String, dynamic>>.from(maps)
           .map((e) => Recipe.fromJson(e))
@@ -37,7 +37,7 @@ class ControllerRecipe {
 
   Future<Recipe> findById(int id) async {
     List<Map> maps = await _db.query('Recipe',
-        columns: ['id', 'type_id', 'observation', 'date', 'value'],
+        columns: ['id', 'type', 'description', 'date', 'value'],
         where: 'id = ?',
         whereArgs: [id]);
     if (maps.length > 0) {

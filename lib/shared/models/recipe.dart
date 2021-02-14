@@ -1,30 +1,28 @@
-import 'package:fluxo/shared/bd/core.dart';
-import 'package:sqflite/sqflite.dart';
 
 class Recipe {
 
   int id;
   int type;
-  String observation;
+  String description;
   DateTime date;
   double value;
 
-  Recipe(this.id, this.type, this.observation, this.date, this.value);
+  Recipe(this.id, this.type, this.description, this.date, this.value);
 
 
   Recipe.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         type = json['type'],
-        observation = json['observation'],
-        date = json['date'],
+        description = json['description'],
+        date = DateTime.parse(json['date']),
         value = json['value'];
 
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'type': type,
-    'observation': observation,
-    'date': date,
+    'description': description,
+    'date': date.toString(),
     'value': value,
   };
 
