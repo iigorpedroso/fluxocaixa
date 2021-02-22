@@ -19,7 +19,6 @@ class _RegisterRecipeState extends State<RegisterRecipe> {
   TextEditingController _hourController = new TextEditingController();
   TextEditingController _valueController = new TextEditingController();
   ControllerRecipe _controller = new ControllerRecipe();
-  List<Recipe> _list = [];
   List<TypeRecipe> _typeRecipe = [];
   ControllerTypeRecipe _controllerTypesRecipe = new ControllerTypeRecipe();
 
@@ -28,19 +27,11 @@ class _RegisterRecipeState extends State<RegisterRecipe> {
     super.initState();
 
     this._controller.init().then((value) {
-      findAll();
     });
 
     getAllType();
   }
 
-  void findAll() {
-    this._controller.findAll().then((value) {
-      setState(() {
-        this._list = value;
-      });
-    });
-  }
 
   void getAllType() {
     this._controllerTypesRecipe.init().then((value) {
@@ -52,18 +43,14 @@ class _RegisterRecipeState extends State<RegisterRecipe> {
     });
   }
 
-  void _showMessage(String message) {
-    final snackBar =
-        SnackBar(content: Text(message), backgroundColor: Colors.green);
-    Scaffold.of(context).showSnackBar(snackBar);
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Cadastro Receitas"),
+          title: Text("Cadastro Receita"),
         ),
+        bottomNavigationBar: _buttonInsert(),
         body: SingleChildScrollView(child: this._body()));
   }
 
@@ -74,8 +61,6 @@ class _RegisterRecipeState extends State<RegisterRecipe> {
         _observation(),
         _dateAndHours(),
         _value(),
-        _buttonInsert(),
-        _listRegister()
       ],
     );
   }
@@ -96,43 +81,6 @@ class _RegisterRecipeState extends State<RegisterRecipe> {
         ),
       ],
     );
-  }
-
-  Widget _listRegister() {
-    return ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        physics: ScrollPhysics(),
-        padding: EdgeInsets.only(bottom: 15),
-        itemCount: _list.length,
-        itemBuilder: (context, index) {
-          final item = _list[index].id.toString();
-          return Dismissible(
-              key: Key(item),
-              onDismissed: (direction) {
-                this._controller.delete(_list[index]);
-                this.findAll();
-                this._showMessage("Apagado com sucesso!");
-              },
-              background: Container(
-                padding: EdgeInsets.only(right: 20.0),
-                alignment: Alignment.centerRight,
-                color: Colors.red,
-                child: Text(
-                  'Deletar',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(left: 15, right: 15, top: 7.5),
-                child: Card(
-                    child: ListTile(
-                  title: Text('R\$ ${_list[index].value}'),
-                  subtitle: Text('${_list[index].description}'),
-                )),
-              ));
-        });
   }
 
   Widget _value() {
@@ -214,8 +162,7 @@ class _RegisterRecipeState extends State<RegisterRecipe> {
   Widget _buttonInsert() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.all(25),
-      height: 50,
+      height: 60,
       child: RaisedButton(
           color: Colors.blue,
           onPressed: () {
@@ -230,9 +177,8 @@ class _RegisterRecipeState extends State<RegisterRecipe> {
                 .replaceAll(",", "."));
             Recipe data = new Recipe(null, type, description, dateTime, value);
             this._controller.insert(data);
-            this._showMessage("Inserido com sucesso!");
             this.clean();
-            this.findAll();
+            Navigator.pop(context);
           },
           child: Icon(Icons.add, color: Colors.white)),
     );

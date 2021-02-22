@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluxo/modules/fluxo/home/main_fluxo.dart';
-import 'package:fluxo/modules/fluxo/register/register_expense.dart';
-import 'package:fluxo/modules/fluxo/register/register_recipe.dart';
-import 'package:fluxo/modules/fluxo/register/register_type_expense.dart';
-import 'package:fluxo/modules/fluxo/register/register_type_recipe.dart';
+import 'package:fluxo/modules/fluxo/list/list_expense.dart';
+import 'package:fluxo/modules/fluxo/list/list_recipe.dart';
+import 'package:fluxo/modules/fluxo/list/list_type_expense.dart';
+import 'package:fluxo/modules/fluxo/list/list_type_recipe.dart';
 import 'package:fluxo/modules/fluxo/reports/reports_fluxo.dart';
 
 
@@ -27,10 +27,10 @@ class _FluxoHomePageState extends State<FluxoHomePage> {
         index: _index,
         children: [
           MainFluxo(),
-          RegisterRecipe(),
-          RegisterExpense(),
-          RegisterTypeRecipe(),
-          RegisterTypeExpense(),
+          ListRecipe(),
+          ListExpense(),
+          ListTypeRecipe(),
+          ListTypeExpense(),
           ReportsFluxo()
         ],
       ),

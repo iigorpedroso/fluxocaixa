@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluxo/modules/fluxo/fluxo_page.dart';
+import 'package:fluxo/modules/fluxo/register/register_expense.dart';
+import 'package:fluxo/modules/fluxo/register/register_recipe.dart';
+import 'package:fluxo/modules/fluxo/register/register_type_expense.dart';
+import 'package:fluxo/modules/fluxo/register/register_type_recipe.dart';
 import 'package:fluxo/modules/home/login/login_page.dart';
 import 'package:fluxo/modules/home/splash/splash_page.dart';
 
@@ -13,6 +17,10 @@ void main() {
       '/': (context) => LoginPage(),
       'splash': (context) => SplashPage(),
       'fluxo/home': (context) => FluxoHomePage(),
+      'register/expense': (context) => RegisterExpense(),
+      'register/recipe': (context) => RegisterRecipe(),
+      'register/typeexpense': (context) => RegisterTypeExpense(),
+      'register/typerecipe': (context) => RegisterTypeRecipe(),
     },
   ));
 }
