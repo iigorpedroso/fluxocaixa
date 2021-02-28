@@ -36,9 +36,6 @@ class _ListExpenseState extends State<ListExpense> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Gastos"),
-        ),
         floatingActionButton: FloatingActionButton(
           heroTag: null,
           onPressed: () {

@@ -38,9 +38,6 @@ class _ListRecipeState extends State<ListRecipe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Receitas"),
-        ),
         floatingActionButton: FloatingActionButton(
           heroTag: null,
           onPressed: () {

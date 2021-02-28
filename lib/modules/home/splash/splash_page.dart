@@ -32,7 +32,8 @@ class _SplashPageState extends State<SplashPage> {
               padding: EdgeInsets.only(top: 15),
               child: Text("FLUXO",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w100)),
-            )
+            ),
+           Padding(padding: EdgeInsets.only(top: 15), child: CircularProgressIndicator(backgroundColor: Colors.white))
           ],
         ),
       ),

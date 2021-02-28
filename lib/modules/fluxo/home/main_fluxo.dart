@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class MainFluxo extends StatefulWidget {
@@ -10,10 +8,6 @@ class MainFluxo extends StatefulWidget {
 class _MainFluxoState extends State<MainFluxo> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("PRINCIPAL"),
-      ),
-    );
+    return Scaffold();
   }
 }
