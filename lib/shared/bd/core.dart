@@ -26,6 +26,12 @@ String _createRecipe = '''CREATE TABLE Recipe (
                       date TIMESTAMP NOT NULL,
                       value FLOAT NOT NULL)''';
 
+String _createUser = '''CREATE TABLE User (
+                      id INTEGER PRIMARY KEY AUTOINCREMENT,
+                      email TEXT NOT NULL,
+                      password TEXT NOT NULL,
+                      name TEXT NOT NULL)''';
+
 
 
 class DatabaseFluxo {
@@ -60,6 +66,7 @@ class DatabaseFluxo {
           await db.execute(_createExpense);
           await db.execute(_createTypeRecipe);
           await db.execute(_createRecipe);
+          await db.execute(_createUser);
         });
   }
 }
