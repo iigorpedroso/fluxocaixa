@@ -46,4 +46,11 @@ class ControllerExpense {
     return null;
   }
 
+  void deleteAll() async {
+    List<Expense> list = await this.findAll();
+    list.forEach((data) {
+      this.delete(data);
+    });
+  }
+
 }

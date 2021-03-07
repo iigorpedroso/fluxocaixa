@@ -46,4 +46,11 @@ class ControllerRecipe {
     return null;
   }
 
+  void deleteAll() async {
+    List<Recipe> list = await this.findAll();
+    list.forEach((data) {
+      this.delete(data);
+    });
+  }
+
 }
