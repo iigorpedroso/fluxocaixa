@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluxo/shared/controllers/controller_user.dart';
+import 'package:fluxo/shared/models/user.dart';
 import 'package:fluxo/shared/utils/components/form.dart';
 
 class LoginPage extends StatefulWidget {
@@ -8,13 +10,28 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  ControllerUser _controllerUser = new ControllerUser();
+
+
+  @override
+  void initState() {
+    super.initState();
+    this._controllerUser.init();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: _body(),
-    ));
+        key: _scaffoldKey,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 2 - 230),
+            child: _body(),
+          ),
+        )
+    );
   }
 
   Widget _body() {
@@ -29,8 +46,22 @@ class _LoginPageState extends State<LoginPage> {
             style: TextStyle(fontWeight: FontWeight.w100, fontSize: 15)),
         _email(),
         _password(),
-        _button()
+        _button(),
+        _register(),
       ],
+    );
+  }
+
+  Widget _register() {
+    return Padding(
+      padding: EdgeInsets.only(top: 20),
+      child: GestureDetector(
+        child: Text("Não possui registro? \n Registrar",
+            textAlign: TextAlign.center),
+        onTap: () {
+          Navigator.pushNamed(context, 'register');
+        },
+      ),
     );
   }
 
@@ -41,12 +72,26 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.only(left: 25, right: 25),
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
-        child: Text("LOGIN"),
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, 'splash');
-        },
-      ),
+          child: Text("LOGIN"),
+          onPressed: _login),
     );
+  }
+
+  void _login() async {
+    if (_emailController.text != "" || _passwordController.text != "") {
+      
+      User user = await this._controllerUser.findByEmail(_emailController.text);
+
+      if (user != null) {
+
+        if (user.password == _passwordController.text) {
+          Navigator.pushReplacementNamed(context, 'fluxo/home');
+        } else
+          this._showMessage("Senha incorreta!", Colors.red);
+      } else
+        this._showMessage("Usuário não encontrado", Colors.red);
+    } else
+      this._showMessage("Informe os dados corretamente", Colors.red);
   }
 
   Widget _password() {
@@ -56,8 +101,9 @@ class _LoginPageState extends State<LoginPage> {
         label: "Senha",
         hintText: "Digite sua senha",
         line: 1,
-        controller: _emailController,
-        textInputType: TextInputType.emailAddress,
+        controller: _passwordController,
+        obscureText: true,
+        textInputType: TextInputType.visiblePassword,
       ),
     );
   }
@@ -73,5 +119,10 @@ class _LoginPageState extends State<LoginPage> {
         textInputType: TextInputType.emailAddress,
       ),
     );
+  }
+
+  void _showMessage(String message, Color color) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+        content: new Text(message), backgroundColor:  color));
   }
 }
